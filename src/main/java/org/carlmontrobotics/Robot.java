@@ -4,7 +4,12 @@
 
 package org.carlmontrobotics;
 
+import org.carlmontrobotics.lib199.MotorControllerFactory;
+
+import com.revrobotics.spark.SparkFlex;
+
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -15,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+  private SparkFlex sparkFlex = MotorControllerFactory.createSparkFlex(3);
 
   private final RobotContainer m_robotContainer;
 
@@ -42,6 +48,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    sparkFlex.set(0.3);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
