@@ -9,6 +9,7 @@ import org.carlmontrobotics.lib199.MotorControllerFactory;
 
 import com.revrobotics.spark.SparkBase;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Subsystem1 extends SubsystemBase {
@@ -23,6 +24,7 @@ public class Subsystem1 extends SubsystemBase {
   }
   @Override
   public void periodic() {
+    SmartDashboard.putData(this);
     // This method will be called once per scheduler run
   }
 }

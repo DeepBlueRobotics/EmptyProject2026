@@ -37,9 +37,6 @@ public class RobotContainer {
   public final Subsystem1 subsystem1 = new Subsystem1();
 
   public RobotContainer() {
-    Command1 command1 = new Command1(subsystem1);
-    command1.schedule();
-
     setDefaultCommands();
     setBindingsDriver();
     setBindingsManipulator();
@@ -53,6 +50,7 @@ public class RobotContainer {
     //   () -> ProcessedAxisValue(driverController, Axis.kRightX)),
     //   () -> driverController.getRawButton(OI.Driver.slowDriveButton)
     // ));
+    subsystem1.setDefaultCommand(new Command1(subsystem1));
   }
   private void setBindingsDriver() {}
   private void setBindingsManipulator() {}
