@@ -4,7 +4,17 @@
 
 package org.carlmontrobotics;
 
+import org.carlmontrobotics.lib199.MotorConfig;
+import org.carlmontrobotics.lib199.MotorControllerFactory;
+import org.carlmontrobotics.lib199.MotorControllerType;
+
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.config.*;
+
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -17,6 +27,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
+  private SparkClosedLoopController intakePID;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -26,6 +37,13 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    SparkBaseConfig config = MotorControllerFactory.sparkConfig(MotorConfig.NEO_VORTEX);
+    config.closedLoop.pid(0.1, 0, 0);
+    SparkBase motor = MotorControllerFactory.createSpark(31,MotorConfig.NEO, config);
+    intakePID = motor.getClosedLoopController();
+    intakePID.setSetpoint(600, ControlType.kVelocity);
+    
+    
   }
 
   /**
