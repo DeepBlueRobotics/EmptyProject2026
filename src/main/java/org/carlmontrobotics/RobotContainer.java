@@ -9,9 +9,6 @@ package org.carlmontrobotics;
 // import org.carlmontrobotics.commands.*;
 import static org.carlmontrobotics.Constants.OI;
 
-import org.carlmontrobotics.commands.Example2;
-import org.carlmontrobotics.subsystems.Example;
-
 //controllers
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController.Axis;
@@ -34,16 +31,6 @@ public class RobotContainer {
   //2. Use absolute paths from constants to reduce confusion
   public final GenericHID driverController = new GenericHID(OI.Driver.port);
   public final GenericHID manipulatorController = new GenericHID(OI.Manipulator.port);
-  public final Example example = new Example();
-
-
-  public RobotContainer() {
-    Example2 c = new Example2(example);
-    c.schedule();
-    setDefaultCommands();
-    setBindingsDriver();
-    setBindingsManipulator();
-  }
 
   private void setDefaultCommands() {
     // drivetrain.setDefaultCommand(new TeleopDrive(

@@ -37,9 +37,11 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    SparkBaseConfig config = MotorControllerFactory.sparkConfig(MotorConfig.NEO_VORTEX);
-    config.closedLoop.pid(0.1, 0, 0);
-    SparkBase motor = MotorControllerFactory.createSpark(31,MotorConfig.NEO, config);
+    SparkBaseConfig config = MotorControllerFactory.sparkConfig(MotorConfig.NEO);
+    config.closedLoop.pid(0.0005, 0, 0.001);
+
+    
+    SparkBase motor = MotorControllerFactory.createSpark(1,MotorConfig.NEO, config);
     intakePID = motor.getClosedLoopController();
     intakePID.setSetpoint(600, ControlType.kVelocity);
     
