@@ -21,7 +21,7 @@ public class Command1 extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    subsystem1.spinMotor(0.1);
+    subsystem1.setRPM(120);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
