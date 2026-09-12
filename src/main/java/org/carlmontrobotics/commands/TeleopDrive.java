@@ -4,29 +4,37 @@
 
 package org.carlmontrobotics.commands;
 
-import org.carlmontrobotics.subsystems.Subsystem1;
+import java.util.function.DoubleSupplier;
+
+import org.carlmontrobotics.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class Command1 extends Command {
-  Subsystem1 subsystem1;
-  /** Creates a new example. */
-  public Command1(Subsystem1 subsystem1) {
-    this.subsystem1 = subsystem1;
-    addRequirements(subsystem1);
+public class TeleopDrive extends Command {
+  /** Creates a new TellyopDrive. */
+  Drivetrain drivetrain;
+    DoubleSupplier speedAxis;
+    DoubleSupplier rotationAxis;
+  public TeleopDrive(Drivetrain drivetrain, DoubleSupplier speedAxis, DoubleSupplier rotationAxis) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.drivetrain = drivetrain;
+    this.speedAxis = speedAxis;
+    this.rotationAxis = rotationAxis;
+    addRequirements(drivetrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    subsystem1.setRPM(120);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    double speed = speedAxis.getAsDouble();
+    double rotation = rotationAxis.getAsDouble();
+    drivetrain.arcadeDrive(speed, rotation);
+  }
 
   // Called once the command ends or is interrupted.
   @Override

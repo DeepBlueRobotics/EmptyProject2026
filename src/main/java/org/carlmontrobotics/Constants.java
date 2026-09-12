@@ -16,9 +16,10 @@ public final class Constants {
     public static final class OI {
         public static final class Driver {
             public static final int port = 0;
-            public static final double kP = 0.004;
+            public static final double kP = 0.04;
             public static final double kI = 0;
             public static final double kD = 0;
+            public static final double MOTOR_SLOWDOWN = 0.5;
         }
         public static final class Manipulator {
             public static final int port = 1;
