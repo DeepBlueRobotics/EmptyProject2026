@@ -14,14 +14,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class TeleopDrive extends Command {
   /** Creates a new TeleopDrive. */
   Drivetrain drivetrain;
-  DoubleSupplier speedAxis;
-  DoubleSupplier rotationAxis;
+
   
-  public TeleopDrive(Drivetrain drivetrain, DoubleSupplier speedAxis, DoubleSupplier rotationAxis) {
+  public TeleopDrive(Drivetrain drivetrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.drivetrain = drivetrain;
-    this.speedAxis = speedAxis;
-    this. rotationAxis = rotationAxis;
     addRequirements(drivetrain);
   }
 
@@ -32,10 +29,7 @@ public class TeleopDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = speedAxis.getAsDouble();
-    double rotation = rotationAxis.getAsDouble();
-
-    drivetrain.arcadeDrive(speed, rotation);
+    drivetrain.runMotorPID(200);
   }
 
   // Called once the command ends or is interrupted.
