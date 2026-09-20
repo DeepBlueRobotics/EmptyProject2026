@@ -18,8 +18,8 @@ public class DriveTrainAuto extends SubsystemBase {
   SparkBase leftMotor;
   SparkBase rightMotor;
   public DriveTrainAuto() {
-leftMotor = MotorControllerFactory.createSpark(1, MotorConfig.NEO);
-rightMotor = MotorControllerFactory.createSpark(2, MotorConfig.NEO);
+leftMotor = MotorControllerFactory.createSpark(2, MotorConfig.NEO);
+rightMotor = MotorControllerFactory.createSpark(3, MotorConfig.NEO);
 }
 
 public void arcadeDriveAuto(double speed, double rotation){

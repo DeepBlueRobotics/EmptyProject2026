@@ -25,4 +25,7 @@ public final class Constants {
             public static final int port = 1;
         }
     }
+    public static final class AutonTimer {
+        public static final double END_TIMER = 2.0;
+    }
 }
