@@ -29,6 +29,10 @@ public void arcadeDriveAuto(double speed, double rotation){
   rightMotor.set(-rightSpeed * Driver.MOTOR_SLOWDOWN);
 }
 
+public void singleAutonCommand(DriveTrainAuto driveTrainAuto, double speed, double rotation){
+    arcadeDriveAuto(speed, rotation);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

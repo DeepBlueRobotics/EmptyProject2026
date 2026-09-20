@@ -26,6 +26,6 @@ public final class Constants {
         }
     }
     public static final class AutonTimer {
-        public static final double END_TIMER = 2.0;
+        public static final int END_TIMER = 1;
     }
 }

@@ -15,44 +15,34 @@ import edu.wpi.first.wpilibj2.command.Command;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AutonDrive extends Command {
     /** Creates a new TellyopDrive. */
-    DriveTrainAuto driveTrainAuto;
+    DriveTrainAuto drivetrainAuto;
     Timer timer = new Timer();
     public AutonDrive(DriveTrainAuto drivetrainauto) {
       // Use addRequirements() here to declare subsystem dependencies.
-      this.driveTrainAuto = drivetrainauto;
+      this.drivetrainAuto = drivetrainauto;
       addRequirements(drivetrainauto);
     }
   
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+      drivetrainAuto.singleAutonCommand(drivetrainAuto, -0.5,0.0);
       timer.restart();
     }
   
-  public void singleAutonCommand(double speed, double rotation){
-    double Speed = speed;
-    double Rotation = rotation;
-    driveTrainAuto.arcadeDriveAuto(Speed, Rotation);
-  }
-  
     // Called every time the scheduler runs while the command is scheduled.
     @Override
-    public void execute() {
-      singleAutonCommand(0.5,0);
-    }
+    public void execute() {    }
   
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-      singleAutonCommand(0,0);
+      drivetrainAuto.singleAutonCommand(drivetrainAuto, 0.0,0.0);
     }
   
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-      if (timer.get() >= AutonTimer.END_TIMER){
-      return true;
-    }
-    else return false;
+      return timer.get() >= AutonTimer.END_TIMER;
   }
 }
