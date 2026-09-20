@@ -5,6 +5,7 @@
 package org.carlmontrobotics.commands;
 
 import org.carlmontrobotics.subsystems.DriveTrainAuto;
+import edu.wpi.first.wpilibj.Timer;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class AutonDrive extends Command {
   /** Creates a new TellyopDrive. */
   DriveTrainAuto driveTrainAuto;
+  Timer timer = new Timer();
   public AutonDrive(DriveTrainAuto drivetrainauto) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.driveTrainAuto = drivetrainauto;
@@ -20,7 +22,9 @@ public class AutonDrive extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    timer.restart();
+  }
 
 public void singleAutonCommand(double speed, double rotation){
   double Speed = speed;
@@ -32,8 +36,9 @@ public void singleAutonCommand(double speed, double rotation){
   @Override
   public void execute() {
     singleAutonCommand(0.5,0);
-    singleAutonCommand(0,0.5);
-    singleAutonCommand(0,0);
+    if (timer.get() > 2.0) {
+      singleAutonCommand(0,0);
+    }
   }
 
   // Called once the command ends or is interrupted.
