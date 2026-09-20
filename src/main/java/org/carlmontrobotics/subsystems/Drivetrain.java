@@ -7,12 +7,14 @@ package org.carlmontrobotics.subsystems;
 import org.carlmontrobotics.lib199.MotorConfig;
 import org.carlmontrobotics.lib199.MotorControllerFactory;
 
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.config.SparkBaseConfig;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import org.carlmontrobotics.Constants.OI.Driver;
@@ -21,11 +23,14 @@ public class Drivetrain extends SubsystemBase {
   /** Creates a new Subsystem1. */
   SparkBase leftMotor;
   private SparkClosedLoopController motorController;
+  private SimpleMotorFeedforward motorFeedforward;
   public Drivetrain() {
     SparkBaseConfig config = MotorControllerFactory.sparkConfig(MotorConfig.NEO);
     config.closedLoop.pid(0.01, 0, 0);
     leftMotor = MotorControllerFactory.createSpark(Driver.LEFT_MOTOR_ID, MotorConfig.NEO, config);
     motorController = leftMotor.getClosedLoopController();
+
+    motorFeedforward = new SimpleMotorFeedforward(Driver.kS, Driver.kV, Driver.kA);
   }
   public void tankDrive(double leftSpeed, double rightSpeed) {
     leftMotor.set(leftSpeed * Driver.MOTOR_SLOWDOWN);
@@ -37,6 +42,11 @@ public class Drivetrain extends SubsystemBase {
   }
   public void runMotorPID(double targetSpeed) {
     motorController.setSetpoint(targetSpeed, ControlType.kVelocity);
+  }
+
+  public void runMotorFeedforward(double targetSpeed) {
+    double feedForwardVolts = motorFeedforward.calculate(targetSpeed);
+    motorController.setSetpoint(targetSpeed, ControlType.kVelocity, ClosedLoopSlot.kSlot0, feedForwardVolts);
   }
 
   @Override
