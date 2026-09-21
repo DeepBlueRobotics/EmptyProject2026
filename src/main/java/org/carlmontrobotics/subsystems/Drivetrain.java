@@ -22,31 +22,20 @@ import org.carlmontrobotics.Constants.OI.Driver;
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Subsystem1. */
   SparkBase leftMotor;
-  private SparkClosedLoopController motorController;
-  private SimpleMotorFeedforward motorFeedforward;
+  SparkBase rightMotor;
   public Drivetrain() {
-    SparkBaseConfig config = MotorControllerFactory.sparkConfig(MotorConfig.NEO);
-    config.closedLoop.pid(0.01, 0, 0);
-    leftMotor = MotorControllerFactory.createSpark(Driver.LEFT_MOTOR_ID, MotorConfig.NEO, config);
-    motorController = leftMotor.getClosedLoopController();
-
-    motorFeedforward = new SimpleMotorFeedforward(Driver.kS, Driver.kV, Driver.kA);
+    leftMotor = MotorControllerFactory.createSpark(Driver.LEFT_MOTOR_ID, MotorConfig.NEO);
+    rightMotor = MotorControllerFactory.createSpark(Driver.RIGHT_MOTOR_ID, MotorConfig.NEO);
   }
   public void tankDrive(double leftSpeed, double rightSpeed) {
     leftMotor.set(leftSpeed * Driver.MOTOR_SLOWDOWN);
+    rightMotor.set(rightSpeed * Driver.MOTOR_SLOWDOWN);
   }
 
   public void arcadeDrive(double speed, double rotation) {
     double leftSpeed = MathUtil.clamp(speed + rotation, -1.0, 1.0);
     leftMotor.set(leftSpeed * Driver.MOTOR_SLOWDOWN);
-  }
-  public void runMotorPID(double targetSpeed) {
-    motorController.setSetpoint(targetSpeed, ControlType.kVelocity);
-  }
 
-  public void runMotorFeedforward(double targetSpeed) {
-    double feedForwardVolts = motorFeedforward.calculate(targetSpeed);
-    motorController.setSetpoint(targetSpeed, ControlType.kVelocity, ClosedLoopSlot.kSlot0, feedForwardVolts);
   }
 
   @Override
