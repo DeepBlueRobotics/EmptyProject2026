@@ -39,13 +39,15 @@ public class RobotContainer {
     setDefaultCommands();
     setBindingsDriver();
     setBindingsManipulator();
+    registerAutoCommands();
   }
 
-  private void setDefaultCommands() {
-    drivetrainAuto.setDefaultCommand(new AutonDrive(drivetrainAuto));
-  }
+  private void setDefaultCommands() {} 
   private void setBindingsDriver() {}
   private void setBindingsManipulator() {}
+  private Command registerAutoCommands() {
+    return new AutonDrive(drivetrainAuto);
+  }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");

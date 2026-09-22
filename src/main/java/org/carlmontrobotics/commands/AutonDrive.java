@@ -34,9 +34,7 @@ public class AutonDrive extends Command {
   
     // Called every time the scheduler runs while the command is scheduled.
     @Override
-    public void execute() {
-      System.out.println(timer.get());
-    }
+    public void execute() {}
   
     // Called once the command ends or is interrupted.
     @Override
