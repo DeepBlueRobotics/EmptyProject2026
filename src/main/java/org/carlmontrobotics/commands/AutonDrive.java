@@ -5,6 +5,8 @@
 package org.carlmontrobotics.commands;
 
 import org.carlmontrobotics.subsystems.DriveTrainAuto;
+
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.Timer;
 
 import org.carlmontrobotics.Constants.AutonTimer;
@@ -32,7 +34,9 @@ public class AutonDrive extends Command {
   
     // Called every time the scheduler runs while the command is scheduled.
     @Override
-    public void execute() {    }
+    public void execute() {
+      System.out.println(timer.get());
+    }
   
     // Called once the command ends or is interrupted.
     @Override
@@ -43,6 +47,7 @@ public class AutonDrive extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-      return timer.get() >= AutonTimer.END_TIMER;
+      System.out.println("Finished");
+      return (timer.get() >= AutonTimer.END_TIMER);
   }
 }
