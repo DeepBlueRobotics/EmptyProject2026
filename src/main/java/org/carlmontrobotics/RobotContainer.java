@@ -39,7 +39,6 @@ public class RobotContainer {
     setDefaultCommands();
     setBindingsDriver();
     setBindingsManipulator();
-    registerAutoCommands();
   }
 
   private void setDefaultCommands() {} 
@@ -50,7 +49,8 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    registerAutoCommands();
+    return Commands.print("move forward one second");
   }
 
   /**
