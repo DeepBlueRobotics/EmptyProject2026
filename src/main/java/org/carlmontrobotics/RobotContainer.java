@@ -10,6 +10,8 @@ package org.carlmontrobotics;
 import static org.carlmontrobotics.Constants.OI;
 
 import org.carlmontrobotics.commands.TeleopDrive;
+import org.carlmontrobotics.commands.autonomous.DriveBackward;
+import org.carlmontrobotics.commands.autonomous.DriveForward;
 import org.carlmontrobotics.subsystems.Drivetrain;
 
 //controllers
@@ -36,8 +38,12 @@ public class RobotContainer {
   public final GenericHID manipulatorController = new GenericHID(OI.Manipulator.port);
 
   public final Drivetrain drivetrain = new Drivetrain();
+  public final DriveBackward driveBackward = new DriveBackward(drivetrain);
+  public final DriveForward driveForward = new DriveForward(drivetrain);
 
   public RobotContainer() {
+
+    registerAutoCommands();
 
     setDefaultCommands();
     setBindingsDriver();
@@ -57,6 +63,10 @@ public class RobotContainer {
   }
   private void setBindingsDriver() {}
   private void setBindingsManipulator() {}
+
+  private void registerAutoCommands(){
+    new SequentialCommandGroup(new DriveForward(drivetrain), new DriveBackward(drivetrain));
+  }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
