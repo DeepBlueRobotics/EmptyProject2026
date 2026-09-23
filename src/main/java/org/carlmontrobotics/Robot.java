@@ -20,7 +20,7 @@ import com.revrobotics.spark.SparkMax;
  * this project, you must also update the Main.java file in the project.
  */
 public class Robot extends TimedRobot {
-  SparkMax myObject;
+  
 
   private Command m_autonomousCommand;
 
@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    myObject = MotorControllerFactory.createSparkMax(1, MotorConfig.NEO_550);
+   
   }
 
   /**
@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    myObject.set(-0.1);
+    
 
   }
 
