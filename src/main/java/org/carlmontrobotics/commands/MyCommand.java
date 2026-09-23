@@ -21,7 +21,7 @@ public class MyCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    mysubsystem.runMotor(0.2);
+    mysubsystem.runMotor(0.02);
 
   }
 

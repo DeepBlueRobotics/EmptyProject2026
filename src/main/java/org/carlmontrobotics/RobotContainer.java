@@ -8,10 +8,12 @@ package org.carlmontrobotics;
 // import org.carlmontrobotics.subsystems.*;
 // import org.carlmontrobotics.commands.*;
 import static org.carlmontrobotics.Constants.OI;
+import org.carlmontrobotics.Constants.OI.Driver;
 
 import org.carlmontrobotics.commands.MyCommand;
 import org.carlmontrobotics.subsystems.MySubsystem;
 
+import edu.wpi.first.util.sendable.SendableBuilder;
 //controllers
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController.Axis;
@@ -50,9 +52,12 @@ public class RobotContainer {
     //   () -> ProcessedAxisValue(driverController, Axis.kRightX)),
     //   () -> driverController.getRawButton(OI.Driver.slowDriveButton)
     // ));
-    mysubsystem.setDefaultCommand(new MyCommand(mysubsystem));
+    mysubsystem.setDefaultCommand(null);
   }
-  private void setBindingsDriver() {}
+  private void setBindingsDriver() {
+    new JoystickButton(driverController, Driver.MOTOR_BUTTON)
+    .whileTrue(new MyCommand(mysubsystem));
+  }
   private void setBindingsManipulator() {}
 
   public Command getAutonomousCommand() {
@@ -92,5 +97,9 @@ public class RobotContainer {
    */
   private double ProcessedAxisValue(GenericHID hid, Axis axis){
     return inputProcessing(getStickValue(hid, axis));
+  }
+
+  public void initSendable(SendableBuilder builder){
+    builder.addDoubleProperty("motor input", ()-> mysubsystem.getSpeed(), null);
   }
 }
