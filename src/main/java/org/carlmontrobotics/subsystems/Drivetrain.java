@@ -28,13 +28,13 @@ public class Drivetrain extends SubsystemBase {
     rightMotor = MotorControllerFactory.createSpark(Driver.RIGHT_MOTOR_ID, MotorConfig.NEO);
   }
   public void tankDrive(double leftSpeed, double rightSpeed) {
-    leftMotor.set(leftSpeed * Driver.MOTOR_SLOWDOWN);
+    leftMotor.set(-leftSpeed * Driver.MOTOR_SLOWDOWN);
     rightMotor.set(rightSpeed * Driver.MOTOR_SLOWDOWN);
   }
 
   public void arcadeDrive(double speed, double rotation) {
     double leftSpeed = MathUtil.clamp(speed + rotation, -1.0, 1.0);
-    leftMotor.set(leftSpeed * Driver.MOTOR_SLOWDOWN);
+    leftMotor.set(-leftSpeed * Driver.MOTOR_SLOWDOWN);
 
   }
 

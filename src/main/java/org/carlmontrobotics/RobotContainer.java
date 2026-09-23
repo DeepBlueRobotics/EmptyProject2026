@@ -49,6 +49,7 @@ public class RobotContainer {
     setBindingsDriver();
     setBindingsManipulator();
   }
+  
 
   private void setDefaultCommands() {
     // drivetrain.setDefaultCommand(new TeleopDrive(
