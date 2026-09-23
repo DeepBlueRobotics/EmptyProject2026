@@ -9,7 +9,7 @@ package org.carlmontrobotics;
 // import org.carlmontrobotics.commands.*;
 import static org.carlmontrobotics.Constants.OI;
 
-import org.carlmontrobotics.commands.AutonDrive;
+import org.carlmontrobotics.commands.AutonDriveForward;
 import org.carlmontrobotics.subsystems.Drivetrain;
 
 //controllers
@@ -45,13 +45,13 @@ public class RobotContainer {
   private void setDefaultCommands() {} 
   private void setBindingsDriver() {}
   private void setBindingsManipulator() {}
-  private AutonDrive registerAutoCommands() {
-    return new AutonDrive(drivetrain);
+  private AutonDriveForward registerAutoCommands() {
+    return new AutonDriveForward(drivetrain);
   }
 
   
   public Command getAutonomousCommand() {
-    return new AutonDrive(drivetrain);
+    return new AutonDriveForward(drivetrain);
   }
 
   /**

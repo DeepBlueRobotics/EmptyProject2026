@@ -15,11 +15,11 @@ import org.carlmontrobotics.Constants.AutonTimer.*;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AutonDrive extends Command {
+public class AutonDriveForward extends Command {
     /** Creates a new TellyopDrive. */
     Drivetrain drivetrain;
     Timer timer = new Timer();
-    public AutonDrive(Drivetrain drivetrain) {
+    public AutonDriveForward(Drivetrain drivetrain) {
       // Use addRequirements() here to declare subsystem dependencies.
       this.drivetrain = drivetrain;
       addRequirements(drivetrain);
@@ -29,7 +29,7 @@ public class AutonDrive extends Command {
     @Override
     public void initialize() {
       timer.restart();
-      drivetrain.tankDrive(0.25, 0.25);
+      drivetrain.arcadeDrive(-0.25, 0.0);
     }
   
     // Called every time the scheduler runs while the command is scheduled.
@@ -39,7 +39,7 @@ public class AutonDrive extends Command {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-      drivetrain.tankDrive(0.0,0.0);
+      drivetrain.arcadeDrive(0.0,0.0);
     }
   
     // Returns true when the command should end.
