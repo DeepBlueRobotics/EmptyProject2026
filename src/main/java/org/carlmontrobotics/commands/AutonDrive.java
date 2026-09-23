@@ -4,7 +4,7 @@
 
 package org.carlmontrobotics.commands;
 
-import org.carlmontrobotics.subsystems.DriveTrainAuto;
+import org.carlmontrobotics.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.Timer;
@@ -17,35 +17,34 @@ import edu.wpi.first.wpilibj2.command.Command;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AutonDrive extends Command {
     /** Creates a new TellyopDrive. */
-    DriveTrainAuto drivetrainAuto;
+    Drivetrain drivetrain;
     Timer timer = new Timer();
-    public AutonDrive(DriveTrainAuto drivetrainauto) {
+    public AutonDrive(Drivetrain drivetrain) {
       // Use addRequirements() here to declare subsystem dependencies.
-      this.drivetrainAuto = drivetrainauto;
-      addRequirements(drivetrainauto);
+      this.drivetrain = drivetrain;
+      addRequirements(drivetrain);
     }
   
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-      drivetrainAuto.singleAutonCommand(drivetrainAuto, -0.5,0.0);
       timer.restart();
+      drivetrain.tankDrive(0.25, 0.25);
     }
   
     // Called every time the scheduler runs while the command is scheduled.
     @Override
-    public void execute() {
-    }
+    public void execute() {}
   
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-      drivetrainAuto.singleAutonCommand(drivetrainAuto, 0.0,0.0);
+      drivetrain.tankDrive(0.0,0.0);
     }
   
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-      return (timer.get() >= AutonTimer.END_TIMER);
+      return timer.get() >= AutonTimer.END_TIMER;
   }
 }

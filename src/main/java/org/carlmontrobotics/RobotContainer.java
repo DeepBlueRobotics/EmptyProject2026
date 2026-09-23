@@ -10,7 +10,7 @@ package org.carlmontrobotics;
 import static org.carlmontrobotics.Constants.OI;
 
 import org.carlmontrobotics.commands.AutonDrive;
-import org.carlmontrobotics.subsystems.DriveTrainAuto;
+import org.carlmontrobotics.subsystems.Drivetrain;
 
 //controllers
 import edu.wpi.first.wpilibj.GenericHID;
@@ -34,7 +34,7 @@ public class RobotContainer {
   //2. Use absolute paths from constants to reduce confusion
   public final GenericHID driverController = new GenericHID(OI.Driver.port);
   public final GenericHID manipulatorController = new GenericHID(OI.Manipulator.port);
-  public final DriveTrainAuto drivetrainAuto = new DriveTrainAuto();
+  public final Drivetrain drivetrain = new Drivetrain();
   public RobotContainer() {
     setDefaultCommands();
     setBindingsDriver();
@@ -45,8 +45,8 @@ public class RobotContainer {
   private void setDefaultCommands() {} 
   private void setBindingsDriver() {}
   private void setBindingsManipulator() {}
-  private Command registerAutoCommands() {
-    return new AutonDrive(drivetrainAuto);
+  private AutonDrive registerAutoCommands() {
+    return new AutonDrive(drivetrain);
   }
 
   public Command getAutonomousCommand() {

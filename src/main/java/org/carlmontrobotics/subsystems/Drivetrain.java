@@ -22,6 +22,11 @@ leftMotor = MotorControllerFactory.createSpark(1, MotorConfig.NEO);
 rightMotor = MotorControllerFactory.createSpark(2, MotorConfig.NEO);
 }
 
+public void tankDrive(double leftMotorSpeed, double rightMotorSpeed){
+  leftMotor.set(leftMotorSpeed);
+  rightMotor.set(rightMotorSpeed);
+}
+
 public void arcadeDrive(double speed, double rotation){
   double leftSpeed = MathUtil.clamp(speed + rotation, -1.0, 1.0);
   double rightSpeed = MathUtil.clamp(speed - rotation, -1.0, 1.0);
