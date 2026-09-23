@@ -39,6 +39,7 @@ public class RobotContainer {
     setDefaultCommands();
     setBindingsDriver();
     setBindingsManipulator();
+    getAutonomousCommand();
   }
 
   private void setDefaultCommands() {} 
