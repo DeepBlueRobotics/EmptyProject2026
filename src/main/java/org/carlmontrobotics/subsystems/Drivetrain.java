@@ -15,23 +15,56 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
-  SparkBase leftMotor;
-  SparkBase rightMotor;
+  SparkBase frontLeftMotor;
+  SparkBase frontRightMotor;
+  SparkBase backLeftMotor;
+  SparkBase backRightMotor;
+  boolean turnOnBackAxis;
   public Drivetrain() {
-leftMotor = MotorControllerFactory.createSpark(2, MotorConfig.NEO);
-rightMotor = MotorControllerFactory.createSpark(3, MotorConfig.NEO);
+frontLeftMotor = MotorControllerFactory.createSpark(2, MotorConfig.NEO);
+frontRightMotor = MotorControllerFactory.createSpark(3, MotorConfig.NEO);
+backLeftMotor = MotorControllerFactory.createSpark(4, MotorConfig.NEO);
+backRightMotor = MotorControllerFactory.createSpark(5, MotorConfig.NEO);
+turnOnBackAxis = false;
 }
 
-public void tankDrive(double leftMotorSpeed, double rightMotorSpeed){
+/*public void tankDrive(double leftMotorSpeed, double rightMotorSpeed){
   leftMotor.set(leftMotorSpeed);
   rightMotor.set(rightMotorSpeed);
-}
+}*/
 
 public void arcadeDrive(double speed, double rotation){
   double leftSpeed = MathUtil.clamp(speed + rotation, -1.0, 1.0);
   double rightSpeed = MathUtil.clamp(speed - rotation, -1.0, 1.0);
-  leftMotor.set(leftSpeed * Driver.MOTOR_SLOWDOWN);
-  rightMotor.set(-rightSpeed * Driver.MOTOR_SLOWDOWN);
+  frontLeftMotor.set(leftSpeed * Driver.MOTOR_SLOWDOWN);
+  frontRightMotor.set(-rightSpeed * Driver.MOTOR_SLOWDOWN);
+  backLeftMotor.set(leftSpeed * Driver.MOTOR_SLOWDOWN);
+  backRightMotor.set(-rightSpeed * Driver.MOTOR_SLOWDOWN);
+}
+
+public void toggleBackAxis(boolean toggle){
+  turnOnBackAxis = !turnOnBackAxis;
+}
+public void mecanumDrive(double forward, double strafe, double rotation){
+  if (strafe == 0){
+    arcadeDrive(forward, rotation);
+  } else {
+    double topLeftSpeed = forward + strafe + rotation;
+    double topRightSpeed = forward - strafe - rotation;
+    double bottomLeftSpeed ;
+    double bottomRightSpeed;
+    if (turnOnBackAxis == true && forward == 0 && strafe == 0){
+      bottomLeftSpeed = 0;
+      bottomRightSpeed = 0;
+    } else{
+      bottomLeftSpeed = forward - strafe + rotation;
+      bottomRightSpeed = forward + strafe - rotation;
+    }
+    frontLeftMotor.set(MathUtil.clamp(topLeftSpeed, -1.0, 1.0) * Driver.MOTOR_SLOWDOWN);
+    frontRightMotor.set(MathUtil.clamp(topRightSpeed, -1.0, 1.0) * Driver.MOTOR_SLOWDOWN);
+    backLeftMotor.set(MathUtil.clamp(bottomLeftSpeed, -1.0, 1.0) * Driver.MOTOR_SLOWDOWN);
+    backRightMotor.set(MathUtil.clamp(bottomRightSpeed, -1.0, 1.0) * Driver.MOTOR_SLOWDOWN);
+  }
 }
 
   @Override
