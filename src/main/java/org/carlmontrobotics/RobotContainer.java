@@ -9,8 +9,8 @@ package org.carlmontrobotics;
 // import org.carlmontrobotics.commands.*;
 import static org.carlmontrobotics.Constants.OI;
 
-import org.carlmontrobotics.commands.AutonDriveForward;
 import org.carlmontrobotics.commands.DriveAuton;
+import org.carlmontrobotics.commands.TeleopDrive;
 import org.carlmontrobotics.subsystems.Drivetrain;
 
 //controllers
@@ -43,7 +43,17 @@ public class RobotContainer {
     registerAutoCommands();
   }
 
-  private void setDefaultCommands() {} 
+  private void setDefaultCommands() {
+    drivetrain.setDefaultCommand(new TeleopDrive(
+      drivetrain,
+     () -> ProcessedAxisValue(driverController, Axis.kLeftY),
+
+     () -> ProcessedAxisValue(driverController, Axis.kLeftX),
+
+     () -> ProcessedAxisValue(driverController, Axis.kRightX),
+     
+     () -> driverController.getRawButton(5)));
+  } 
   private void setBindingsDriver() {}
   private void setBindingsManipulator() {}
   private DriveAuton registerAutoCommands() {

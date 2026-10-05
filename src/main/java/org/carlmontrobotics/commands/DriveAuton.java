@@ -6,6 +6,8 @@ package org.carlmontrobotics.commands;
 
 import org.carlmontrobotics.subsystems.Drivetrain;
 
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -18,6 +20,11 @@ public class DriveAuton extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     this.drivetrain = drivetrain;
-    new SequentialCommandGroup(new AutonDriveForward(drivetrain), new AutonDriveBack(drivetrain)).schedule();
+    addCommands(
+      new SequentialCommandGroup(
+        new AutonDriveForward(drivetrain),
+        new AutonDriveBack(drivetrain)
+        )
+      );
   }
 }

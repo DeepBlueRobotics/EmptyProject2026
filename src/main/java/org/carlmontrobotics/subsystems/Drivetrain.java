@@ -19,13 +19,11 @@ public class Drivetrain extends SubsystemBase {
   SparkBase frontRightMotor;
   SparkBase backLeftMotor;
   SparkBase backRightMotor;
-  boolean turnOnBackAxis;
   public Drivetrain() {
 frontLeftMotor = MotorControllerFactory.createSpark(2, MotorConfig.NEO);
 frontRightMotor = MotorControllerFactory.createSpark(3, MotorConfig.NEO);
 backLeftMotor = MotorControllerFactory.createSpark(4, MotorConfig.NEO);
 backRightMotor = MotorControllerFactory.createSpark(5, MotorConfig.NEO);
-turnOnBackAxis = false;
 }
 
 /*public void tankDrive(double leftMotorSpeed, double rightMotorSpeed){
@@ -42,10 +40,7 @@ public void arcadeDrive(double speed, double rotation){
   backRightMotor.set(-rightSpeed * Driver.MOTOR_SLOWDOWN);
 }
 
-public void toggleBackAxis(boolean toggle){
-  turnOnBackAxis = !turnOnBackAxis;
-}
-public void mecanumDrive(double forward, double strafe, double rotation){
+public void mecanumDrive(double forward, double strafe, double rotation, boolean backAxis){
   if (strafe == 0){
     arcadeDrive(forward, rotation);
   } else {
@@ -53,7 +48,7 @@ public void mecanumDrive(double forward, double strafe, double rotation){
     double topRightSpeed = forward - strafe - rotation;
     double bottomLeftSpeed ;
     double bottomRightSpeed;
-    if (turnOnBackAxis == true && forward == 0 && strafe == 0){
+    if (backAxis == true && forward == 0 && strafe == 0){
       bottomLeftSpeed = 0;
       bottomRightSpeed = 0;
     } else{
