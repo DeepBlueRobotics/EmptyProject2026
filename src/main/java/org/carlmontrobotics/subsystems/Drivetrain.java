@@ -40,15 +40,15 @@ public void arcadeDrive(double speed, double rotation){
   backRightMotor.set(-rightSpeed * Driver.MOTOR_SLOWDOWN);
 }
 
-public void mecanumDrive(double forward, double strafe, double rotation, boolean backAxis){
-  if (strafe == 0){
+public void mecanumDrive(double forward, double strafe, double rotation, boolean turnOnBackAxis){
+  if (strafe == 0 && Math.abs(forward) > 0){
     arcadeDrive(forward, rotation);
   } else {
     double topLeftSpeed = forward + strafe + rotation;
     double topRightSpeed = forward - strafe - rotation;
-    double bottomLeftSpeed ;
+    double bottomLeftSpeed;
     double bottomRightSpeed;
-    if (backAxis == true && forward == 0 && strafe == 0){
+    if (turnOnBackAxis && forward == 0 && strafe == 0){
       bottomLeftSpeed = 0;
       bottomRightSpeed = 0;
     } else{

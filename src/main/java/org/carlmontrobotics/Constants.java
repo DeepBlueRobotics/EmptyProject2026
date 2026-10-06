@@ -4,6 +4,8 @@
 
 package org.carlmontrobotics;
 
+import edu.wpi.first.wpilibj.StadiaController.Button;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -15,6 +17,7 @@ package org.carlmontrobotics;
 public final class Constants {
     public static final class OI {
         public static final class Driver {
+            public static final int TURN_ON_BACK_AXIS_BUTTON = Button.kLeftBumper.value;
             public static final int port = 0;
             public static final double kP = 0.04;
             public static final double kI = 0;

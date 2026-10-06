@@ -15,16 +15,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class TeleopDrive extends Command {
   /** Creates a new TellyopDrive. */
   Drivetrain drivetrain;
-    DoubleSupplier forwardAxis;
-    DoubleSupplier swerveAxis;
-    DoubleSupplier rotationAxis;
+    DoubleSupplier forward;
+    DoubleSupplier swerve;
+    DoubleSupplier rotation;
     BooleanSupplier turnOnBackAxis;
-  public TeleopDrive(Drivetrain drivetrain, DoubleSupplier forwardAxis, DoubleSupplier swerveAxis, DoubleSupplier rotationAxis, BooleanSupplier turnOnBackAxis) {
+  public TeleopDrive(Drivetrain drivetrain, DoubleSupplier forward, DoubleSupplier swerve, DoubleSupplier rotation, BooleanSupplier turnOnBackAxis) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.drivetrain = drivetrain;
-    this.forwardAxis = forwardAxis;
-    this.swerveAxis = swerveAxis;
-    this.rotationAxis = rotationAxis;
+    this.forward = forward;
+    this.swerve = swerve;
+    this.rotation = rotation;
     this.turnOnBackAxis = turnOnBackAxis;
     addRequirements(drivetrain);
   }
@@ -36,11 +36,7 @@ public class TeleopDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double forward = forwardAxis.getAsDouble();
-    double swerve = swerveAxis.getAsDouble();
-    double rotation = rotationAxis.getAsDouble();
-    boolean turnOnBackAxisEnabled = turnOnBackAxis.getAsBoolean();
-    drivetrain.mecanumDrive(forward, swerve, rotation, turnOnBackAxisEnabled);
+    drivetrain.mecanumDrive(forward.getAsDouble(), swerve.getAsDouble(), rotation.getAsDouble(), turnOnBackAxis.getAsBoolean());
   }
 
   // Called once the command ends or is interrupted.
